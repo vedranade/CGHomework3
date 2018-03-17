@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Downloads\CGHomework3\CGHomework3\functionality.cpp">
+    <ClCompile Include="functionality.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Downloads\CGHomework3\CGHomework3\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\Downloads\CGHomework3\CGHomework3\functionality.h">
+    <ClInclude Include="functionality.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
