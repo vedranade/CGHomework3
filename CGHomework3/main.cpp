@@ -13,10 +13,11 @@ int window_width = 1400, window_height = 700;
 void init(void) 
 { 
 	glClearColor(0.0, 0.0, 0.0, 0.0);   
-	glShadeModel(GL_FLAT); 
+	glShadeModel(GL_FLAT);
+
 }
 
-int main(int argc, char** argv) 
+int main(int argc, char** argv)
 { 
 	PartACamera Cam;
 	glutInit(&argc, argv);   
@@ -25,7 +26,7 @@ int main(int argc, char** argv)
 	glutInitWindowPosition(50, 50);   
 	glutCreateWindow(argv[0]);   
 	init();   
-	glutDisplayFunc(Cam.PartADisplay);    
+	glutDisplayFunc(display);    
 	glutReshapeFunc(Cam.reshape);
 	glutKeyboardFunc(Cam.PartAHandleKeyboard);
 	glutMainLoop();   
