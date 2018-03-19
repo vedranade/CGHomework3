@@ -29,7 +29,7 @@ void display(void)
 	glLoadIdentity();
 	Cam.PartAMoveCamera();
 	glLoadIdentity();
-	DrawGround();
+	
 								//Draw the ground
 	/*if (PartACameraIsMoved)
 	{
@@ -43,11 +43,12 @@ void PartACamera::reshape(int w, int h)
 {
 	
 	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 	//glLoadIdentity();
 	//glFrustum(-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
 	gluPerspective(85.0, 1.0, 1.5, 100.0);
 	glMatrixMode(GL_MODELVIEW);
-	
+	glLoadIdentity();
 }
 
 void PartACamera::PartAHandleKeyboard(unsigned char key, int x, int y)
@@ -109,17 +110,21 @@ void PartACamera::PartAMoveCamera()
 {
 	//glLoadIdentity();             /* clear the matrix */
 	glViewport(700, 0, 700, 350);
+	
 	glTranslatef(0.0, 0.0, -7.5);
 	glRotatef(30.0, 1.0, 0.0, 0.0);
+	glScalef(1.0, 2.0, 1.0);      /* modeling transformation*/
+	
 	gluLookAt(
 		Cam.CameraPositionX, Cam.CameraPositionY, Cam.CameraPositionZ,						//Camera position
 		Cam.CameraPointingToX, Cam.CameraPointingToY, Cam.CameraPointingToZ,				//Aim at position
 		Cam.CameraTiltX, Cam.CameraTiltY, Cam.CameraTiltZ									//Camera orientation
 	);
-	glScalef(1.0, 2.0, 1.0);      /* modeling transformation*/
+	DrawGround();
 	GLUquadricObj* quadObj = gluNewQuadric();
 	gluQuadricDrawStyle(quadObj, GLU_LINE);
 	gluCylinder(quadObj, 1.5, 0.5, 6.0, 20, 10);
+	
 	glEnd();
 }
 
