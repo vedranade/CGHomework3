@@ -9,17 +9,18 @@
 
 using namespace std;
 
-boolean PartACameraIsMoved = false;
+boolean CameraIsMoved = false;
 void DrawGround();
 
-PartACamera::PartACamera()					//Sets initial camera position parameters
+Camera::Camera()					//Sets initial camera position parameters
 {
 	CameraPositionX = 0.0, CameraPositionY = 0.0, CameraPositionZ = 5.0;
 	CameraPointingToX = 0.0, CameraPointingToY = 0.0, CameraPointingToZ = 0.0;
 	CameraTiltX = 0.0, CameraTiltY = 1.0, CameraTiltZ = 0.0;
 }
 
-PartACamera Cam;
+Camera CamPartA;
+Camera CamPartBV2;
 
 void display(void)
 {
@@ -27,19 +28,37 @@ void display(void)
 	glColor3f(1.0, 1.0, 1.0);
 	
 	glLoadIdentity();
-	Cam.PartAMoveCamera();
+	PartB();
+	CamPartA.PartAMoveCamera();
 	glLoadIdentity();
 	
 								//Draw the ground
-	/*if (PartACameraIsMoved)
+	/*if (CameraIsMoved)
 	{
-		Cam.PartAMoveCamera();
+		CamPartA.PartAMoveCamera();
 	}*/
 
 	glFlush();
 }
 
-void PartACamera::reshape(int w, int h)
+void PartB()
+{
+	//For V2:
+	glViewport(0, 0, 700, 350);
+	glPushMatrix();
+	glTranslatef(0.0, 7.0, -2.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);
+	glScalef(1.0, 1.0, 1.0);
+	GLUquadricObj* quadObj = gluNewQuadric();
+	gluQuadricDrawStyle(quadObj, GLU_LINE);
+	gluCylinder(quadObj, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	glPopMatrix();
+	DrawGround();
+	CamPartBV2.CameraPositionX = 0.0; CamPartBV2.CameraPositionY = 12; CamPartBV2.CameraPositionZ = -7.5;
+	 
+}
+
+void Camera::reshape(int w, int h)
 {
 	
 	glMatrixMode(GL_PROJECTION);
@@ -51,62 +70,63 @@ void PartACamera::reshape(int w, int h)
 	glLoadIdentity();
 }
 
-void PartACamera::PartAHandleKeyboard(unsigned char key, int x, int y)
+void Camera::PartAHandleKeyboard(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
 		case 'w':
-			Cam.CameraPositionZ = Cam.CameraPositionZ - 0.5;
-			Cam.CameraPointingToZ = Cam.CameraPointingToZ - 0.5;
-			PartACameraIsMoved = true;
+			CamPartA.CameraPositionZ = CamPartA.CameraPositionZ - 0.5;
+			CamPartA.CameraPointingToZ = CamPartA.CameraPointingToZ - 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 's':
-			Cam.CameraPositionZ = Cam.CameraPositionZ + 0.5;
-			Cam.CameraPointingToZ = Cam.CameraPointingToZ + 0.5;
-			PartACameraIsMoved = true;
+			CamPartA.CameraPositionZ = CamPartA.CameraPositionZ + 0.5;
+			CamPartA.CameraPointingToZ = CamPartA.CameraPointingToZ + 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 'd':
-			Cam.CameraPointingToX = Cam.CameraPointingToX + 0.5;
-			Cam.CameraPositionX = Cam.CameraPositionX + 0.5;
-			PartACameraIsMoved = true;
+			CamPartA.CameraPointingToX = CamPartA.CameraPointingToX + 0.5;
+			CamPartA.CameraPositionX = CamPartA.CameraPositionX + 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 'a':
-			Cam.CameraPointingToX = Cam.CameraPointingToX - 0.5;
-			Cam.CameraPositionX = Cam.CameraPositionX - 0.5;
-			PartACameraIsMoved = true;
+			CamPartA.CameraPointingToX = CamPartA.CameraPointingToX - 0.5;
+			CamPartA.CameraPositionX = CamPartA.CameraPositionX - 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case ' ':
-			Cam.CameraPointingToY = Cam.CameraPointingToY + 0.5;
-			Cam.CameraPositionY = Cam.CameraPositionY + 0.5;
-			PartACameraIsMoved = true;
+			CamPartA.CameraPointingToY = CamPartA.CameraPointingToY + 0.5;
+			CamPartA.CameraPositionY = CamPartA.CameraPositionY + 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 'c':
-			Cam.CameraPointingToY = Cam.CameraPointingToY - 0.5;
-			Cam.CameraPositionY = Cam.CameraPositionY - 0.5;
-			PartACameraIsMoved = true;
+			CamPartA.CameraPointingToY = CamPartA.CameraPointingToY - 0.5;
+			CamPartA.CameraPositionY = CamPartA.CameraPositionY - 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 'q':
-			Cam.CameraPointingToX = Cam.CameraPointingToX - 0.5;
-			PartACameraIsMoved = true;
+			CamPartA.CameraPointingToX = CamPartA.CameraPointingToX - 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 'e':
-			Cam.CameraPointingToX = Cam.CameraPointingToX + 0.5;
-			PartACameraIsMoved = true;
+			CamPartA.CameraPointingToX = CamPartA.CameraPointingToX + 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();	
 			break;
+		
 
 	}
 	
 }
 
-void PartACamera::PartAMoveCamera()
+void Camera::PartAMoveCamera()
 {
 	//glLoadIdentity();             /* clear the matrix */
 	glViewport(700, 0, 700, 350);
@@ -116,9 +136,9 @@ void PartACamera::PartAMoveCamera()
 	glScalef(1.0, 2.0, 1.0);      /* modeling transformation*/
 	
 	gluLookAt(
-		Cam.CameraPositionX, Cam.CameraPositionY, Cam.CameraPositionZ,						//Camera position
-		Cam.CameraPointingToX, Cam.CameraPointingToY, Cam.CameraPointingToZ,				//Aim at position
-		Cam.CameraTiltX, Cam.CameraTiltY, Cam.CameraTiltZ									//Camera orientation
+		CamPartA.CameraPositionX, CamPartA.CameraPositionY, CamPartA.CameraPositionZ,						//Camera position
+		CamPartA.CameraPointingToX, CamPartA.CameraPointingToY, CamPartA.CameraPointingToZ,				//Aim at position
+		CamPartA.CameraTiltX, CamPartA.CameraTiltY, CamPartA.CameraTiltZ									//Camera orientation
 	);
 	DrawGround();
 	GLUquadricObj* quadObj = gluNewQuadric();
@@ -128,14 +148,14 @@ void PartACamera::PartAMoveCamera()
 	glEnd();
 }
 
-void PartACamera::PartASetupCamera()
+void Camera::PartASetupCamera()
 {
 	glLoadIdentity();             /* clear the matrix */
 	glViewport(700, 0, 700, 350);
 	gluLookAt(
-		Cam.CameraPositionX, Cam.CameraPositionY, Cam.CameraPositionZ,						//Camera position
-		Cam.CameraPointingToX, Cam.CameraPointingToY, Cam.CameraPointingToZ,				//Aim at position
-		Cam.CameraTiltX, Cam.CameraTiltY, Cam.CameraTiltZ									//Camera orientation
+		CamPartA.CameraPositionX, CamPartA.CameraPositionY, CamPartA.CameraPositionZ,						//Camera position
+		CamPartA.CameraPointingToX, CamPartA.CameraPointingToY, CamPartA.CameraPointingToZ,				//Aim at position
+		CamPartA.CameraTiltX, CamPartA.CameraTiltY, CamPartA.CameraTiltZ									//Camera orientation
 	);
 	glScalef(1.0, 2.0, 1.0);      /* modeling transformation*/
 	GLUquadricObj* quadObj = gluNewQuadric();

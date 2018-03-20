@@ -19,7 +19,7 @@ void init(void)
 
 int main(int argc, char** argv)
 { 
-	PartACamera Cam;
+	Camera Cam;
 	glutInit(&argc, argv);   
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);   
 	glutInitWindowSize(window_width, window_height);    

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <math.h>
 
-class PartACamera
+class Camera
 {
 	public:
 	GLdouble CameraPositionX, CameraPositionY, CameraPositionZ;				
@@ -17,7 +17,8 @@ class PartACamera
 	static void PartAHandleKeyboard(unsigned char key, int x, int y);
 	static void PartAMoveCamera();
 	static void PartASetupCamera();
-	PartACamera();
+	Camera();
 };
 
 void display(void);
+void PartB();
