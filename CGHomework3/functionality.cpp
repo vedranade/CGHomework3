@@ -69,7 +69,7 @@ void GenerateV2()
 void GenerateV3()
 {
 	glViewport(0, 350, 700, 350);
-	CamV3.CameraPositionX = 0.0; CamV3.CameraPositionY = 10.0; CamV3.CameraPositionZ = 10.0;
+	CamV3.CameraPositionX = 10.0; CamV3.CameraPositionY = 0.0; CamV3.CameraPositionZ = 0.0;
 	CamV3.CameraPointingToX = 0.0; CamV3.CameraPointingToY = 0.0; CamV3.CameraPointingToY = 0.0;
 	CamV3.CameraTiltX = 0.0; CamV3.CameraTiltY = 1.0; CamV3.CameraTiltZ = 0.0;
 	gluLookAt
