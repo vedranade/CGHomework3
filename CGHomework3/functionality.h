@@ -24,3 +24,4 @@ void display(void);
 void GenerateV2();
 void GenerateV3();
 void GenerateV4();
+void GenerateObject();

@@ -62,14 +62,7 @@ void GenerateV2()
 		CamV2.CameraPointingToX, CamV2.CameraPointingToY, CamV2.CameraPointingToY,
 		CamV2.CameraTiltX, CamV2.CameraTiltY, CamV2.CameraTiltZ
 	);
-	glPushMatrix();
-	glTranslatef(0.0, 7.0, 0.0);
-	glRotatef(90.0, 1.0, 0.0, 0.0);
-	glScalef(1.0, 2.0, 1.0);
-	GLUquadricObj* quadObjV2 = gluNewQuadric();
-	gluQuadricDrawStyle(quadObjV2, GLU_LINE);
-	gluCylinder(quadObjV2, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
-	glPopMatrix();
+	GenerateObject();
 	DrawGround();
 }
 
@@ -90,14 +83,7 @@ void GenerateV3()
 		CamV3.CameraPointingToX, CamV3.CameraPointingToY, CamV3.CameraPointingToY,
 		CamV3.CameraTiltX, CamV3.CameraTiltY, CamV3.CameraTiltZ
 	);
-	glPushMatrix();
-	glTranslatef(0.0, 7.0, 0.0);
-	glRotatef(90.0, 1.0, 0.0, 0.0);
-	glScalef(1.0, 2.0, 1.0);
-	GLUquadricObj* quadObjV3 = gluNewQuadric();
-	gluQuadricDrawStyle(quadObjV3, GLU_LINE);
-	gluCylinder(quadObjV3, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
-	glPopMatrix();
+	GenerateObject();
 	DrawGround();
 }
 
@@ -118,15 +104,20 @@ void GenerateV4()
 		CamV4.CameraPointingToX, CamV4.CameraPointingToY, CamV4.CameraPointingToY,
 		CamV4.CameraTiltX, CamV4.CameraTiltY, CamV4.CameraTiltZ
 	);
+	GenerateObject();
+	DrawGround();
+}
+
+void GenerateObject()
+{
 	glPushMatrix();
 	glTranslatef(0.0, 7.0, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
 	glScalef(1.0, 2.0, 1.0);
-	GLUquadricObj* quadObjV3 = gluNewQuadric();
-	gluQuadricDrawStyle(quadObjV3, GLU_LINE);
-	gluCylinder(quadObjV3, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	GLUquadricObj* quadObjV2 = gluNewQuadric();
+	gluQuadricDrawStyle(quadObjV2, GLU_LINE);
+	gluCylinder(quadObjV2, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
 	glPopMatrix();
-	DrawGround();
 }
 
 void Camera::reshape(int w, int h)
