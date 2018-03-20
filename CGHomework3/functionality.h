@@ -21,4 +21,5 @@ class Camera
 };
 
 void display(void);
-void PartB();
+void GenerateV2();
+void GenerateV3();

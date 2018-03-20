@@ -20,7 +20,8 @@ Camera::Camera()					//Sets initial camera position parameters
 }
 
 Camera CamPartA;
-Camera CamPartBV2;
+Camera CamV2;
+Camera CamV3;
 
 void display(void)
 {
@@ -28,7 +29,8 @@ void display(void)
 	glColor3f(1.0, 1.0, 1.0);
 	
 	glLoadIdentity();
-	PartB();
+	//GenerateV2();
+	GenerateV3();
 	//CamPartA.PartAMoveCamera();
 	//glLoadIdentity();
 	
@@ -41,30 +43,50 @@ void display(void)
 	glFlush();
 }
 
-void PartB()
+void GenerateV2()
 {
-	//For V2:
 	glViewport(0, 0, 700, 350);
-	CamPartBV2.CameraPositionX = 0.0; CamPartBV2.CameraPositionY = 10; CamPartBV2.CameraPositionZ = 0.0;
-	CamPartBV2.CameraPointingToX = 0.0; CamPartBV2.CameraPointingToY = 0.0; CamPartBV2.CameraPointingToY = 0.0;
-	CamPartBV2.CameraTiltX = 0.0; CamPartBV2.CameraTiltY = 0.0; CamPartBV2.CameraTiltZ = -1.0;
+	CamV2.CameraPositionX = 0.0; CamV2.CameraPositionY = 10; CamV2.CameraPositionZ = 0.0;
+	CamV2.CameraPointingToX = 0.0; CamV2.CameraPointingToY = 0.0; CamV2.CameraPointingToY = 0.0;
+	CamV2.CameraTiltX = 0.0; CamV2.CameraTiltY = 0.0; CamV2.CameraTiltZ = -1.0;
 	gluLookAt
 	(
-		CamPartBV2.CameraPositionX, CamPartBV2.CameraPositionY, CamPartBV2.CameraPositionZ,
-		CamPartBV2.CameraPointingToX, CamPartBV2.CameraPointingToY, CamPartBV2.CameraPointingToY,
-		CamPartBV2.CameraTiltX, CamPartBV2.CameraTiltY, CamPartBV2.CameraTiltZ
+		CamV2.CameraPositionX, CamV2.CameraPositionY, CamV2.CameraPositionZ,
+		CamV2.CameraPointingToX, CamV2.CameraPointingToY, CamV2.CameraPointingToY,
+		CamV2.CameraTiltX, CamV2.CameraTiltY, CamV2.CameraTiltZ
 	);
 	glPushMatrix();
 	glTranslatef(0.0, 7.0, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
 	glScalef(1.0, 1.0, 1.0);
-	GLUquadricObj* quadObj = gluNewQuadric();
-	gluQuadricDrawStyle(quadObj, GLU_LINE);
-	gluCylinder(quadObj, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	GLUquadricObj* quadObjV2 = gluNewQuadric();
+	gluQuadricDrawStyle(quadObjV2, GLU_LINE);
+	gluCylinder(quadObjV2, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
 	glPopMatrix();
 	DrawGround();
-	
-	 
+}
+
+void GenerateV3()
+{
+	glViewport(0, 350, 700, 350);
+	CamV3.CameraPositionX = 0.0; CamV3.CameraPositionY = 10.0; CamV3.CameraPositionZ = 10.0;
+	CamV3.CameraPointingToX = 0.0; CamV3.CameraPointingToY = 0.0; CamV3.CameraPointingToY = 0.0;
+	CamV3.CameraTiltX = 0.0; CamV3.CameraTiltY = 1.0; CamV3.CameraTiltZ = 0.0;
+	gluLookAt
+	(
+		CamV3.CameraPositionX, CamV3.CameraPositionY, CamV3.CameraPositionZ,
+		CamV3.CameraPointingToX, CamV3.CameraPointingToY, CamV3.CameraPointingToY,
+		CamV3.CameraTiltX, CamV3.CameraTiltY, CamV3.CameraTiltZ
+	);
+	glPushMatrix();
+	glTranslatef(0.0, 7.0, 0.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);
+	glScalef(1.0, 1.0, 1.0);
+	GLUquadricObj* quadObjV3 = gluNewQuadric();
+	gluQuadricDrawStyle(quadObjV3, GLU_LINE);
+	gluCylinder(quadObjV3, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	glPopMatrix();
+	DrawGround();
 }
 
 void Camera::reshape(int w, int h)
