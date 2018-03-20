@@ -29,7 +29,7 @@ void display(void)
 	glColor3f(1.0, 1.0, 1.0);
 	
 	glLoadIdentity();
-	//GenerateV2();
+	GenerateV2();
 	GenerateV3();
 	//CamPartA.PartAMoveCamera();
 	//glLoadIdentity();
@@ -46,6 +46,11 @@ void display(void)
 void GenerateV2()
 {
 	glViewport(0, 0, 700, 350);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(85.0, 1.0, 1.5, 100.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	CamV2.CameraPositionX = 0.0; CamV2.CameraPositionY = 10; CamV2.CameraPositionZ = 0.0;
 	CamV2.CameraPointingToX = 0.0; CamV2.CameraPointingToY = 0.0; CamV2.CameraPointingToY = 0.0;
 	CamV2.CameraTiltX = 0.0; CamV2.CameraTiltY = 0.0; CamV2.CameraTiltZ = -1.0;
@@ -58,7 +63,7 @@ void GenerateV2()
 	glPushMatrix();
 	glTranslatef(0.0, 7.0, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
-	glScalef(1.0, 1.0, 1.0);
+	glScalef(1.0, 2.0, 1.0);
 	GLUquadricObj* quadObjV2 = gluNewQuadric();
 	gluQuadricDrawStyle(quadObjV2, GLU_LINE);
 	gluCylinder(quadObjV2, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
@@ -69,6 +74,11 @@ void GenerateV2()
 void GenerateV3()
 {
 	glViewport(0, 350, 700, 350);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(85.0, 1.0, 1.5, 100.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	CamV3.CameraPositionX = 10.0; CamV3.CameraPositionY = 0.0; CamV3.CameraPositionZ = 0.0;
 	CamV3.CameraPointingToX = 0.0; CamV3.CameraPointingToY = 0.0; CamV3.CameraPointingToY = 0.0;
 	CamV3.CameraTiltX = 0.0; CamV3.CameraTiltY = 1.0; CamV3.CameraTiltZ = 0.0;
@@ -81,7 +91,7 @@ void GenerateV3()
 	glPushMatrix();
 	glTranslatef(0.0, 7.0, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
-	glScalef(1.0, 1.0, 1.0);
+	glScalef(1.0, 2.0, 1.0);
 	GLUquadricObj* quadObjV3 = gluNewQuadric();
 	gluQuadricDrawStyle(quadObjV3, GLU_LINE);
 	gluCylinder(quadObjV3, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0

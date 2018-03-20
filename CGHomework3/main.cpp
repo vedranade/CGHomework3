@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 	glutCreateWindow(argv[0]);   
 	init();   
 	glutDisplayFunc(display);    
-	glutReshapeFunc(Cam.reshape);
+	//glutReshapeFunc(Cam.reshape);
 	glutKeyboardFunc(Cam.PartAHandleKeyboard);
 	glutMainLoop();   
 	return 0; 
