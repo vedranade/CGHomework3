@@ -22,6 +22,7 @@ Camera::Camera()					//Sets initial camera position parameters
 Camera CamPartA;
 Camera CamV2;
 Camera CamV3;
+Camera CamV4;
 
 void display(void)
 {
@@ -31,7 +32,8 @@ void display(void)
 	glLoadIdentity();
 	GenerateV2();
 	GenerateV3();
-	//CamPartA.PartAMoveCamera();
+	GenerateV4();
+	CamPartA.PartAMoveCamera();
 	//glLoadIdentity();
 	
 								//Draw the ground
@@ -87,6 +89,34 @@ void GenerateV3()
 		CamV3.CameraPositionX, CamV3.CameraPositionY, CamV3.CameraPositionZ,
 		CamV3.CameraPointingToX, CamV3.CameraPointingToY, CamV3.CameraPointingToY,
 		CamV3.CameraTiltX, CamV3.CameraTiltY, CamV3.CameraTiltZ
+	);
+	glPushMatrix();
+	glTranslatef(0.0, 7.0, 0.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);
+	glScalef(1.0, 2.0, 1.0);
+	GLUquadricObj* quadObjV3 = gluNewQuadric();
+	gluQuadricDrawStyle(quadObjV3, GLU_LINE);
+	gluCylinder(quadObjV3, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	glPopMatrix();
+	DrawGround();
+}
+
+void GenerateV4()
+{
+	glViewport(700, 350, 700, 350);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(85.0, 1.0, 1.5, 100.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	CamV4.CameraPositionX = 0.0; CamV4.CameraPositionY = 0.0; CamV4.CameraPositionZ = 10.0;
+	CamV4.CameraPointingToX = 0.0; CamV4.CameraPointingToY = 0.0; CamV4.CameraPointingToY = 0.0;
+	CamV4.CameraTiltX = 0.0; CamV4.CameraTiltY = 1.0; CamV4.CameraTiltZ = 0.0;
+	gluLookAt
+	(
+		CamV4.CameraPositionX, CamV4.CameraPositionY, CamV4.CameraPositionZ,
+		CamV4.CameraPointingToX, CamV4.CameraPointingToY, CamV4.CameraPointingToY,
+		CamV4.CameraTiltX, CamV4.CameraTiltY, CamV4.CameraTiltZ
 	);
 	glPushMatrix();
 	glTranslatef(0.0, 7.0, 0.0);
@@ -171,7 +201,11 @@ void Camera::PartAMoveCamera()
 {
 	//glLoadIdentity();             /* clear the matrix */
 	glViewport(700, 0, 700, 350);
-	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(85.0, 1.0, 1.5, 100.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	glTranslatef(0.0, 0.0, -7.5);
 	glRotatef(30.0, 1.0, 0.0, 0.0);
 	glScalef(1.0, 2.0, 1.0);      /* modeling transformation*/

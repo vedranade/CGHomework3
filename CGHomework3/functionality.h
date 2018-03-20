@@ -23,3 +23,4 @@ class Camera
 void display(void);
 void GenerateV2();
 void GenerateV3();
+void GenerateV4();
