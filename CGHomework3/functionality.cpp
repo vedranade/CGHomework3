@@ -11,6 +11,7 @@ using namespace std;
 
 boolean CameraIsMoved = false;
 void DrawGround();
+int S2S3Rotation = 0;
 
 Camera::Camera()					//Sets initial camera position parameters
 {
@@ -131,6 +132,7 @@ void GenerateObject()
 	
 	glPushMatrix();
 	
+	glRotatef(S2S3Rotation, 0.0, 1.0, 0.0);
 	glTranslatef(0.0, 7.5, -2.5);
 	glScalef(1.0, 2.0, 1.0);
 	//Draw cylinder S2 S3
@@ -206,7 +208,10 @@ void Camera::PartAHandleKeyboard(unsigned char key, int x, int y)
 			CameraIsMoved = true;
 			glutPostRedisplay();	
 			break;
-		
+		case 't':
+			S2S3Rotation = S2S3Rotation + 10;
+			glutPostRedisplay();
+			break;
 
 	}
 	
