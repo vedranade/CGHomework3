@@ -53,7 +53,7 @@ void GenerateV2()
 	gluPerspective(85.0, 1.0, 1.5, 100.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	CamV2.CameraPositionX = 0.0; CamV2.CameraPositionY = 10; CamV2.CameraPositionZ = 0.0;
+	CamV2.CameraPositionX = 0.0; CamV2.CameraPositionY = 14; CamV2.CameraPositionZ = 0.0;
 	CamV2.CameraPointingToX = 0.0; CamV2.CameraPointingToY = 0.0; CamV2.CameraPointingToY = 0.0;
 	CamV2.CameraTiltX = 0.0; CamV2.CameraTiltY = 0.0; CamV2.CameraTiltZ = -1.0;
 	gluLookAt
@@ -74,7 +74,7 @@ void GenerateV3()
 	gluPerspective(85.0, 1.0, 1.5, 100.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	CamV3.CameraPositionX = 10.0; CamV3.CameraPositionY = 0.0; CamV3.CameraPositionZ = 0.0;
+	CamV3.CameraPositionX = 10.0; CamV3.CameraPositionY = 8.0; CamV3.CameraPositionZ = 0.0;
 	CamV3.CameraPointingToX = 0.0; CamV3.CameraPointingToY = 0.0; CamV3.CameraPointingToY = 0.0;
 	CamV3.CameraTiltX = 0.0; CamV3.CameraTiltY = 1.0; CamV3.CameraTiltZ = 0.0;
 	gluLookAt
@@ -95,7 +95,7 @@ void GenerateV4()
 	gluPerspective(85.0, 1.0, 1.5, 100.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	CamV4.CameraPositionX = 0.0; CamV4.CameraPositionY = 0.0; CamV4.CameraPositionZ = 10.0;
+	CamV4.CameraPositionX = 0.0; CamV4.CameraPositionY = 8.0; CamV4.CameraPositionZ = 10.0;
 	CamV4.CameraPointingToX = 0.0; CamV4.CameraPointingToY = 0.0; CamV4.CameraPointingToY = 0.0;
 	CamV4.CameraTiltX = 0.0; CamV4.CameraTiltY = 1.0; CamV4.CameraTiltZ = 0.0;
 	gluLookAt
@@ -112,12 +112,36 @@ void GenerateObject()
 {
 	glPushMatrix();
 	glTranslatef(0.0, 7.0, 0.0);
-	glRotatef(90.0, 1.0, 0.0, 0.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);											//Making the cylinder upright
 	glScalef(1.0, 2.0, 1.0);
-	GLUquadricObj* quadObjV2 = gluNewQuadric();
-	gluQuadricDrawStyle(quadObjV2, GLU_LINE);
-	gluCylinder(quadObjV2, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	//Draw cylinder S1
+	GLUquadricObj* VerticalCylinderS1 = gluNewQuadric();
+	gluQuadricDrawStyle(VerticalCylinderS1, GLU_LINE);
+	gluCylinder(VerticalCylinderS1, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
 	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, 7.5, 0);
+	glScalef(1.0, 2.0, 1.0);
+	//Draw sphere B2
+	GLUquadricObj* SphereB2 = gluNewQuadric();
+	gluQuadricDrawStyle(SphereB2, GLU_LINE);
+	gluSphere(SphereB2, 0.4, 20, 10);
+	glPopMatrix();
+	
+	glPushMatrix();
+	
+	glTranslatef(0.0, 7.5, -2.5);
+	glScalef(1.0, 2.0, 1.0);
+	//Draw cylinder S2 S3
+	GLUquadricObj* CylinderS2S3 = gluNewQuadric();
+	gluQuadricDrawStyle(CylinderS2S3, GLU_LINE);
+	gluCylinder(CylinderS2S3, 0.2, 0.2, 5.0, 20, 10);
+	glPopMatrix();
+
+	
+
+
 }
 
 void Camera::reshape(int w, int h)
