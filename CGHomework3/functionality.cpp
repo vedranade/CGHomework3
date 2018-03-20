@@ -29,8 +29,8 @@ void display(void)
 	
 	glLoadIdentity();
 	PartB();
-	CamPartA.PartAMoveCamera();
-	glLoadIdentity();
+	//CamPartA.PartAMoveCamera();
+	//glLoadIdentity();
 	
 								//Draw the ground
 	/*if (CameraIsMoved)
@@ -45,8 +45,17 @@ void PartB()
 {
 	//For V2:
 	glViewport(0, 0, 700, 350);
+	CamPartBV2.CameraPositionX = 0.0; CamPartBV2.CameraPositionY = 10; CamPartBV2.CameraPositionZ = 0.0;
+	CamPartBV2.CameraPointingToX = 0.0; CamPartBV2.CameraPointingToY = 0.0; CamPartBV2.CameraPointingToY = 0.0;
+	CamPartBV2.CameraTiltX = 0.0; CamPartBV2.CameraTiltY = 0.0; CamPartBV2.CameraTiltZ = -1.0;
+	gluLookAt
+	(
+		CamPartBV2.CameraPositionX, CamPartBV2.CameraPositionY, CamPartBV2.CameraPositionZ,
+		CamPartBV2.CameraPointingToX, CamPartBV2.CameraPointingToY, CamPartBV2.CameraPointingToY,
+		CamPartBV2.CameraTiltX, CamPartBV2.CameraTiltY, CamPartBV2.CameraTiltZ
+	);
 	glPushMatrix();
-	glTranslatef(0.0, 7.0, -2.0);
+	glTranslatef(0.0, 7.0, 0.0);
 	glRotatef(90.0, 1.0, 0.0, 0.0);
 	glScalef(1.0, 1.0, 1.0);
 	GLUquadricObj* quadObj = gluNewQuadric();
@@ -54,7 +63,7 @@ void PartB()
 	gluCylinder(quadObj, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
 	glPopMatrix();
 	DrawGround();
-	CamPartBV2.CameraPositionX = 0.0; CamPartBV2.CameraPositionY = 12; CamPartBV2.CameraPositionZ = -7.5;
+	
 	 
 }
 
@@ -166,7 +175,7 @@ void Camera::PartASetupCamera()
 void DrawGround()
 {
 	glBegin(GL_LINES);
-	for (GLfloat i = -7.5; i <= 7.5; i += 0.25) {
+	for (GLfloat i = -7.5; i <= 7.5; i += 0.75) {
 		glVertex3f(i, -1, 7.5);
 		glVertex3f(i, -1, -7.5);
 		glVertex3f(7.5, -1, i);
