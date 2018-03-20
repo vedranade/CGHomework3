@@ -141,6 +141,26 @@ void GenerateObject()
 	gluCylinder(CylinderS2S3, 0.2, 0.2, 5.0, 20, 10);
 	glPopMatrix();
 
+	glPushMatrix();
+	glRotatef(S2S3Rotation, 0.0, 1.0, 0.0);
+	glTranslatef(0.0, 7.5, -2.5);
+	glScalef(1.0, 2.0, 1.0);
+	//Draw sphere B1
+	GLUquadricObj* SphereB1 = gluNewQuadric();
+	gluQuadricDrawStyle(SphereB1, GLU_LINE);
+	gluSphere(SphereB1, 0.4, 20, 10);
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(S2S3Rotation, 0.0, 1.0, 0.0);
+	glTranslatef(0.0, 7.5, 2.5);
+	glScalef(1.0, 2.0, 1.0);
+	//Draw sphere B3
+	GLUquadricObj* SphereB3 = gluNewQuadric();
+	gluQuadricDrawStyle(SphereB3, GLU_LINE);
+	gluSphere(SphereB3, 0.4, 20, 10);
+	glPopMatrix();
+
 	
 
 
