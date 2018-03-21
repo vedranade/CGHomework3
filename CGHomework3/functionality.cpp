@@ -13,7 +13,7 @@ boolean CameraIsMoved = false;
 void DrawGround();
 int RotationPY = 0;
 int RotationS4 = 0;
-int RotationS5 = 90;
+int RotationS5 = 0;
 
 Camera::Camera()					//Sets initial camera position parameters
 {
@@ -177,9 +177,10 @@ void GenerateObject()
 
 	glPushMatrix();
 	glRotatef(RotationPY, 0.0, 1.0, 0.0);
+	
 	glTranslatef(0.0, 7.5, -2.5);
-	glRotatef(RotationPY, 0.0, 0.0, 1.0);
-	glRotatef(90.0, 1.0, 0.0, 0.0);											//Making the cylinder upright
+	glRotatef(RotationS5, 0.0, 0.0, 1.0);
+	glRotatef(270.0, 1.0, 0.0, 0.0);											//Making the cylinder upright
 	glScalef(1.0, 2.0, 1.0);
 	//Draw cylinder S5
 	GLUquadricObj* VerticalCylinderS5 = gluNewQuadric();
@@ -253,7 +254,7 @@ void Camera::PartAHandleKeyboard(unsigned char key, int x, int y)
 			break;
 		case 't':
 			RotationPY += 10;
-			RotationS4 += 10;
+			RotationS5 -= 10;
 			glutPostRedisplay();
 			break;
 
