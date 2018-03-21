@@ -11,7 +11,9 @@ using namespace std;
 
 boolean CameraIsMoved = false;
 void DrawGround();
-int S2S3Rotation = 0;
+int RotationPY = 0;
+int RotationS4 = 0;
+int RotationS5 = 90;
 
 Camera::Camera()					//Sets initial camera position parameters
 {
@@ -132,7 +134,7 @@ void GenerateObject()
 	
 	glPushMatrix();
 	
-	glRotatef(S2S3Rotation, 0.0, 1.0, 0.0);
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);
 	glTranslatef(0.0, 7.5, -2.5);
 	glScalef(1.0, 2.0, 1.0);
 	//Draw cylinder S2 S3
@@ -142,7 +144,7 @@ void GenerateObject()
 	glPopMatrix();
 
 	glPushMatrix();
-	glRotatef(S2S3Rotation, 0.0, 1.0, 0.0);
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);
 	glTranslatef(0.0, 7.5, -2.5);
 	glScalef(1.0, 2.0, 1.0);
 	//Draw sphere B1
@@ -152,7 +154,7 @@ void GenerateObject()
 	glPopMatrix();
 
 	glPushMatrix();
-	glRotatef(S2S3Rotation, 0.0, 1.0, 0.0);
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);
 	glTranslatef(0.0, 7.5, 2.5);
 	glScalef(1.0, 2.0, 1.0);
 	//Draw sphere B3
@@ -161,8 +163,29 @@ void GenerateObject()
 	gluSphere(SphereB3, 0.4, 20, 10);
 	glPopMatrix();
 
-	
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);
+	glTranslatef(0.0, 7.5, 2.5);
+	glRotatef(RotationPY, 0.0, 0.0, 1.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);											//Making the cylinder upright
+	glScalef(1.0, 2.0, 1.0);
+	//Draw cylinder S4
+	GLUquadricObj* VerticalCylinderS4 = gluNewQuadric();
+	gluQuadricDrawStyle(VerticalCylinderS4, GLU_LINE);
+	gluCylinder(VerticalCylinderS4, 0.05, 0.2, 4.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	glPopMatrix();
 
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);
+	glTranslatef(0.0, 7.5, -2.5);
+	glRotatef(RotationPY, 0.0, 0.0, 1.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);											//Making the cylinder upright
+	glScalef(1.0, 2.0, 1.0);
+	//Draw cylinder S5
+	GLUquadricObj* VerticalCylinderS5 = gluNewQuadric();
+	gluQuadricDrawStyle(VerticalCylinderS5, GLU_LINE);
+	gluCylinder(VerticalCylinderS5, 0.05, 0.2, 4.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	glPopMatrix();
 
 }
 
@@ -229,7 +252,8 @@ void Camera::PartAHandleKeyboard(unsigned char key, int x, int y)
 			glutPostRedisplay();	
 			break;
 		case 't':
-			S2S3Rotation = S2S3Rotation + 10;
+			RotationPY += 10;
+			RotationS4 += 10;
 			glutPostRedisplay();
 			break;
 
