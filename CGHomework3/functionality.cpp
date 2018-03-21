@@ -188,6 +188,34 @@ void GenerateObject()
 	gluCylinder(VerticalCylinderS5, 0.05, 0.2, 4.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
 	glPopMatrix();
 
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);						//Rotates along the horizontal cylinder
+	//glTranslatef(0.0, 3.0, 2.5);
+	glTranslatef(0.0, 8.0, 2.5);
+	glTranslatef(0.0, 0.0, 0.0);
+	glRotatef(RotationPY, 0.0, 0.0, 1.0);
+	glTranslatef(0.0, -4.0, 0.0);
+	glScalef(1.0, 2.0, 1.0);
+	//Draw sphere B4
+	GLUquadricObj* SphereB4 = gluNewQuadric();
+	gluQuadricDrawStyle(SphereB4, GLU_LINE);
+	gluSphere(SphereB3, 0.8, 20, 10);
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);						//Rotates along the horizontal cylinder
+																//glTranslatef(0.0, 3.0, 2.5);
+	glTranslatef(0.0, 8.0, -2.5);
+	glTranslatef(0.0, 0.0, 0.0);
+	glRotatef(-RotationPY, 0.0, 0.0, 1.0);
+	glTranslatef(0.0, 4.0, 0.0);
+	glScalef(1.0, 2.0, 1.0);
+	//Draw sphere B5
+	GLUquadricObj* SphereB5 = gluNewQuadric();
+	gluQuadricDrawStyle(SphereB5, GLU_LINE);
+	gluSphere(SphereB5, 0.8, 20, 10);
+	glPopMatrix();
+
 }
 
 void Camera::reshape(int w, int h)
