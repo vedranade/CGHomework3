@@ -31,20 +31,10 @@ void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
-	
-	glLoadIdentity();
 	GenerateV2();
 	GenerateV3();
 	GenerateV4();
 	CamPartA.PartAMoveCamera();
-	//glLoadIdentity();
-	
-								//Draw the ground
-	/*if (CameraIsMoved)
-	{
-		CamPartA.PartAMoveCamera();
-	}*/
-
 	glFlush();
 }
 
@@ -53,10 +43,10 @@ void GenerateV2()
 	glViewport(0, 0, 700, 350);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(85.0, 1.0, 1.5, 100.0);
+	gluPerspective(120.0, 1.0, 1.5, 200.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	CamV2.CameraPositionX = 0.0; CamV2.CameraPositionY = 14; CamV2.CameraPositionZ = 0.0;
+	CamV2.CameraPositionX = 0.0; CamV2.CameraPositionY = 17; CamV2.CameraPositionZ = 0.0;
 	CamV2.CameraPointingToX = 0.0; CamV2.CameraPointingToY = 0.0; CamV2.CameraPointingToY = 0.0;
 	CamV2.CameraTiltX = 0.0; CamV2.CameraTiltY = 0.0; CamV2.CameraTiltZ = -1.0;
 	gluLookAt
@@ -74,7 +64,7 @@ void GenerateV3()
 	glViewport(0, 350, 700, 350);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(85.0, 1.0, 1.5, 100.0);
+	gluPerspective(120.0, 1.0, 1.5, 200.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	CamV3.CameraPositionX = 10.0; CamV3.CameraPositionY = 8.0; CamV3.CameraPositionZ = 0.0;
@@ -95,7 +85,7 @@ void GenerateV4()
 	glViewport(700, 350, 700, 350);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(85.0, 1.0, 1.5, 100.0);
+	gluPerspective(120.0, 1.0, 1.5, 200.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	CamV4.CameraPositionX = 0.0; CamV4.CameraPositionY = 8.0; CamV4.CameraPositionZ = 10.0;
@@ -111,7 +101,7 @@ void GenerateV4()
 	DrawGround();
 }
 
-void GenerateObject()
+void GenerateObject()								//Generates the object for viewpoints V2, V3, V4
 {
 	glPushMatrix();
 	glTranslatef(0.0, 7.0, 0.0);
@@ -192,7 +182,6 @@ void GenerateObject()
 	glRotatef(RotationPY, 0.0, 1.0, 0.0);						//Rotates along the horizontal cylinder
 	//glTranslatef(0.0, 3.0, 2.5);
 	glTranslatef(0.0, 8.0, 2.5);
-	glTranslatef(0.0, 0.0, 0.0);
 	glRotatef(RotationPY, 0.0, 0.0, 1.0);
 	glTranslatef(0.0, -4.0, 0.0);
 	glScalef(1.0, 2.0, 1.0);
@@ -204,9 +193,7 @@ void GenerateObject()
 
 	glPushMatrix();
 	glRotatef(RotationPY, 0.0, 1.0, 0.0);						//Rotates along the horizontal cylinder
-																//glTranslatef(0.0, 3.0, 2.5);
 	glTranslatef(0.0, 8.0, -2.5);
-	glTranslatef(0.0, 0.0, 0.0);
 	glRotatef(-RotationPY, 0.0, 0.0, 1.0);
 	glTranslatef(0.0, 4.0, 0.0);
 	glScalef(1.0, 2.0, 1.0);
