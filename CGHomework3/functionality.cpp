@@ -124,7 +124,6 @@ void GenerateObject()								//Generates the object for viewpoints V2, V3, V4
 	glPopMatrix();
 	
 	glPushMatrix();
-	
 	glRotatef(RotationPY, 0.0, 1.0, 0.0);
 	glTranslatef(0.0, 7.5, -2.5);
 	//glScalef(1.0, 2.0, 1.0);
@@ -168,7 +167,6 @@ void GenerateObject()								//Generates the object for viewpoints V2, V3, V4
 
 	glPushMatrix();
 	glRotatef(RotationPY, 0.0, 1.0, 0.0);
-	
 	glTranslatef(0.0, 7.5, -2.5);
 	glRotatef(RotationS5, 0.0, 0.0, 1.0);
 	glRotatef(270.0, 1.0, 0.0, 0.0);											//Making the cylinder upright
@@ -319,21 +317,6 @@ void Camera::PartAMoveCamera()
 	gluCylinder(quadObj, 1.5, 0.5, 6.0, 20, 10);
 	
 	glEnd();
-}
-
-void Camera::PartASetupCamera()
-{
-	glLoadIdentity();             /* clear the matrix */
-	glViewport(700, 0, 700, 350);
-	gluLookAt(
-		CamPartA.CameraPositionX, CamPartA.CameraPositionY, CamPartA.CameraPositionZ,						//Camera position
-		CamPartA.CameraPointingToX, CamPartA.CameraPointingToY, CamPartA.CameraPointingToZ,				//Aim at position
-		CamPartA.CameraTiltX, CamPartA.CameraTiltY, CamPartA.CameraTiltZ									//Camera orientation
-	);
-	glScalef(1.0, 2.0, 1.0);      /* modeling transformation*/
-	GLUquadricObj* quadObj = gluNewQuadric();
-	gluQuadricDrawStyle(quadObj, GLU_LINE);
-	gluCylinder(quadObj, 4.5, 2.0, 10.0, 20, 10);
 }
 
 void DrawGround()
