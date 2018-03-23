@@ -11,7 +11,7 @@ class Camera
 	GLdouble CameraPositionX, CameraPositionY, CameraPositionZ;				
 	GLdouble CameraPointingToX, CameraPointingToY, CameraPointingToZ;			//All zeroes : the camera is pointing to origin
 	GLdouble CameraTiltX, CameraTiltY, CameraTiltZ;							//Y = 1 : camera is in horizontal, usual position
-
+	
 	//static void PartADisplay(void);
 	static void reshape(int w, int h);
 	static void PartAHandleKeyboard(unsigned char key, int x, int y);
