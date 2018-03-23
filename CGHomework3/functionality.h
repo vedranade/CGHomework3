@@ -16,6 +16,7 @@ class Camera
 	static void reshape(int w, int h);
 	static void PartAHandleKeyboard(unsigned char key, int x, int y);
 	static void PartAMoveCamera();
+	static void MoveCamera();
 	Camera();
 };
 

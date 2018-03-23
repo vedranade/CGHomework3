@@ -15,6 +15,9 @@ int RotationPY = 0;
 int RotationS4 = 0;
 int RotationS5 = 0;
 
+float camera[16];
+float strafe = 0, jump = 0, dir = 0;
+int angle = 10;
 
 Camera::Camera()					//Sets initial camera position parameters
 {
@@ -236,12 +239,14 @@ void Camera::PartAHandleKeyboard(unsigned char key, int x, int y)
 			CamPartA.CameraPointingToX = CamPartA.CameraPointingToX + 0.5;
 			CamPartA.CameraPositionX = CamPartA.CameraPositionX + 0.5;
 			CameraIsMoved = true;
+			strafe -= 10;
 			glutPostRedisplay();
 			break;
 		case 'a':
 			CamPartA.CameraPointingToX = CamPartA.CameraPointingToX - 0.5;
 			CamPartA.CameraPositionX = CamPartA.CameraPositionX - 0.5;
 			CameraIsMoved = true;
+			strafe += 10;
 			glutPostRedisplay();
 			break;
 		case ' ':
@@ -258,13 +263,13 @@ void Camera::PartAHandleKeyboard(unsigned char key, int x, int y)
 			break;
 		case 'q':
 			//CamPartA.CameraPointingToX = CamPartA.CameraPointingToX - 0.5;
-			CamPartA.CameraPositionX -= 0.5;
+			CamPartA.CameraPointingToX -= 0.5;
 			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 'e':
 			//CamPartA.CameraPointingToX = CamPartA.CameraPointingToX + 0.5;
-			CamPartA.CameraPositionX += 0.5;
+			CamPartA.CameraPointingToX += 0.5;
 			CameraIsMoved = true;
 			glutPostRedisplay();	
 			break;
@@ -282,7 +287,7 @@ void Camera::PartAHandleKeyboard(unsigned char key, int x, int y)
 			glutPostRedisplay();
 			break;
 		case 'z':
-			
+			CamPartA.CameraTiltX -= 0.5;
 			glutPostRedisplay();
 			break;
 		case 'x':
@@ -290,6 +295,7 @@ void Camera::PartAHandleKeyboard(unsigned char key, int x, int y)
 			glutPostRedisplay();
 			break;
 	}
+	
 	
 }
 
