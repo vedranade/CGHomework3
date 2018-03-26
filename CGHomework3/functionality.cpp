@@ -9,78 +9,330 @@
 
 using namespace std;
 
-PartACamera Cam;
+boolean CameraIsMoved = false;
+void DrawGround();
+int RotationPY = 0;
+int RotationS4 = 0;
+int RotationS5 = 0;
 
-void PartACamera::PartADisplay(void)
+float camera[16];
+float strafe = 0, jump = 0, dir = 0;
+int angle = 10;
+
+Camera::Camera()					//Sets initial camera position parameters
 {
-	cout << " ";
+	CameraPositionX = 0.0, CameraPositionY = 0.0, CameraPositionZ = 5.0;
+	CameraPointingToX = 0.0, CameraPointingToY = 0.0, CameraPointingToZ = 0.0;
+	CameraTiltX = 0.0, CameraTiltY = 1.0, CameraTiltZ = 0.0;
+}
+
+Camera CamPartA;
+Camera CamV2;
+Camera CamV3;
+Camera CamV4;
+
+void display(void)
+{
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
-	glLoadIdentity();             /* clear the matrix *
-
-								  /* viewing transformation  */
-	gluLookAt(
-		Cam.CameraPositionX, Cam.CameraPositionY, Cam.CameraPositionZ,						//Camera position
-		Cam.CameraPointingToX, Cam.CameraPointingToY, Cam.CameraPointingToZ,				//Aim at position
-		Cam.CameraTiltX, Cam.CameraTiltY, Cam.CameraTiltZ									//Camera orientation
-	);
-	glScalef(1.0, 2.0, 1.0);      /* modeling transformation */
-	glutWireCube(1.0);
+	GenerateV2();
+	GenerateV3();
+	GenerateV4();
+	CamPartA.PartAMoveCamera();
 	glFlush();
 }
 
-void PartACamera::reshape(int w, int h)
+void GenerateV2()
 {
-	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+	glViewport(0, 0, 700, 350);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+	gluPerspective(60.0, 2.0, 1.0, 256.0);
 	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	CamV2.CameraPositionX = 0.0; CamV2.CameraPositionY = 20; CamV2.CameraPositionZ = 0.0;
+	CamV2.CameraPointingToX = 0.0; CamV2.CameraPointingToY = 0.0; CamV2.CameraPointingToY = 0.0;
+	CamV2.CameraTiltX = 0.0; CamV2.CameraTiltY = 0.0; CamV2.CameraTiltZ = -1.0;
+	gluLookAt
+	(
+		CamV2.CameraPositionX, CamV2.CameraPositionY, CamV2.CameraPositionZ,
+		CamV2.CameraPointingToX, CamV2.CameraPointingToY, CamV2.CameraPointingToY,
+		CamV2.CameraTiltX, CamV2.CameraTiltY, CamV2.CameraTiltZ
+	);
+	GenerateObject();
+	DrawGround();
 }
 
-void PartACamera::PartAHandleKeyboard(unsigned char key, int x, int y)
+void GenerateV3()
+{
+	glViewport(0, 350, 700, 350);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60.0, 2.0, 1.0, 256.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	CamV3.CameraPositionX = 20.0; CamV3.CameraPositionY = 15.0; CamV3.CameraPositionZ = 0.0;
+	CamV3.CameraPointingToX = 0.0; CamV3.CameraPointingToY = 0.0; CamV3.CameraPointingToY = 0.0;
+	CamV3.CameraTiltX = 0.0; CamV3.CameraTiltY = 1.0; CamV3.CameraTiltZ = 0.0;
+	gluLookAt
+	(
+		CamV3.CameraPositionX, CamV3.CameraPositionY, CamV3.CameraPositionZ,
+		CamV3.CameraPointingToX, CamV3.CameraPointingToY, CamV3.CameraPointingToY,
+		CamV3.CameraTiltX, CamV3.CameraTiltY, CamV3.CameraTiltZ
+	);
+	GenerateObject();
+	DrawGround();
+}
+
+void GenerateV4()
+{
+	glViewport(700, 350, 700, 350);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60.0, 2.0, 1.0, 256.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	CamV4.CameraPositionX = 0.0; CamV4.CameraPositionY = 15.0; CamV4.CameraPositionZ = 20.0;
+	CamV4.CameraPointingToX = 0.0; CamV4.CameraPointingToY = 0.0; CamV4.CameraPointingToY = 0.0;
+	CamV4.CameraTiltX = 0.0; CamV4.CameraTiltY = 1.0; CamV4.CameraTiltZ = 0.0;
+	gluLookAt
+	(
+		CamV4.CameraPositionX, CamV4.CameraPositionY, CamV4.CameraPositionZ,
+		CamV4.CameraPointingToX, CamV4.CameraPointingToY, CamV4.CameraPointingToY,
+		CamV4.CameraTiltX, CamV4.CameraTiltY, CamV4.CameraTiltZ
+	);
+	GenerateObject();
+	DrawGround();
+}
+
+void GenerateObject()								//Generates the object for viewpoints V2, V3, V4
+{
+	glPushMatrix();
+	glTranslatef(0.0, 7.0, 0.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);											//Making the cylinder upright
+	//glScalef(1.0, 2.0, 1.0);
+	//Draw cylinder S1
+	GLUquadricObj* VerticalCylinderS1 = gluNewQuadric();
+	gluQuadricDrawStyle(VerticalCylinderS1, GLU_LINE);
+	gluCylinder(VerticalCylinderS1, 0.2, 0.2, 8.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, 7.5, 0);
+	//glScalef(1.0, 2.0, 1.0);
+	//Draw sphere B2
+	GLUquadricObj* SphereB2 = gluNewQuadric();
+	gluQuadricDrawStyle(SphereB2, GLU_LINE);
+	gluSphere(SphereB2, 0.4, 20, 10);
+	glPopMatrix();
+	
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);
+	glTranslatef(0.0, 7.5, -2.5);
+	//glScalef(1.0, 2.0, 1.0);
+	//Draw cylinder S2 S3
+	GLUquadricObj* CylinderS2S3 = gluNewQuadric();
+	gluQuadricDrawStyle(CylinderS2S3, GLU_LINE);
+	gluCylinder(CylinderS2S3, 0.2, 0.2, 5.0, 20, 10);
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);
+	glTranslatef(0.0, 7.5, -2.5);
+	//glScalef(1.0, 2.0, 1.0);
+	//Draw sphere B1
+	GLUquadricObj* SphereB1 = gluNewQuadric();
+	gluQuadricDrawStyle(SphereB1, GLU_LINE);
+	gluSphere(SphereB1, 0.4, 20, 10);
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);
+	glTranslatef(0.0, 7.5, 2.5);
+	//glScalef(1.0, 2.0, 1.0);
+	//Draw sphere B3
+	GLUquadricObj* SphereB3 = gluNewQuadric();
+	gluQuadricDrawStyle(SphereB3, GLU_LINE);
+	gluSphere(SphereB3, 0.4, 20, 10);
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);
+	glTranslatef(0.0, 7.5, 2.5);
+	glRotatef(RotationPY, 0.0, 0.0, 1.0);
+	glRotatef(90.0, 1.0, 0.0, 0.0);											//Making the cylinder upright
+	//glScalef(1.0, 2.0, 1.0);
+	//Draw cylinder S4
+	GLUquadricObj* VerticalCylinderS4 = gluNewQuadric();
+	gluQuadricDrawStyle(VerticalCylinderS4, GLU_LINE);
+	gluCylinder(VerticalCylinderS4, 0.05, 0.2, 4.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);
+	glTranslatef(0.0, 7.5, -2.5);
+	glRotatef(RotationS5, 0.0, 0.0, 1.0);
+	glRotatef(270.0, 1.0, 0.0, 0.0);											//Making the cylinder upright
+	//glScalef(1.0, 2.0, 1.0);
+	//Draw cylinder S5
+	GLUquadricObj* VerticalCylinderS5 = gluNewQuadric();
+	gluQuadricDrawStyle(VerticalCylinderS5, GLU_LINE);
+	gluCylinder(VerticalCylinderS5, 0.05, 0.2, 4.0, 20, 10);						//BaseRadius = 0.2, TopRadius = 0.2, Height = 8.0
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);						//Rotates along the horizontal cylinder
+	//glTranslatef(0.0, 3.0, 2.5);
+	glTranslatef(0.0, 8.0, 2.5);
+	glRotatef(RotationPY, 0.0, 0.0, 1.0);
+	glTranslatef(0.0, -4.0, 0.0);
+	//glScalef(1.0, 2.0, 1.0);
+	//Draw sphere B4
+	GLUquadricObj* SphereB4 = gluNewQuadric();
+	gluQuadricDrawStyle(SphereB4, GLU_LINE);
+	gluSphere(SphereB3, 0.8, 20, 10);
+	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(RotationPY, 0.0, 1.0, 0.0);						//Rotates along the horizontal cylinder
+	glTranslatef(0.0, 8.0, -2.5);
+	glRotatef(-RotationPY, 0.0, 0.0, 1.0);
+	glTranslatef(0.0, 4.0, 0.0);
+	//glScalef(1.0, 2.0, 1.0);
+	//Draw sphere B5
+	GLUquadricObj* SphereB5 = gluNewQuadric();
+	gluQuadricDrawStyle(SphereB5, GLU_LINE);
+	gluSphere(SphereB5, 0.8, 20, 10);
+	glPopMatrix();
+
+}
+
+void Camera::reshape(int w, int h)
+{
+	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	//glLoadIdentity();
+	//glFrustum(-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+	gluPerspective(85.0, 1.0, 1.5, 100.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+void Camera::PartAHandleKeyboard(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
 		case 'w':
-			Cam.CameraPositionZ = Cam.CameraPositionZ - 0.5;
-			Cam.CameraPointingToZ = Cam.CameraPointingToZ - 0.5;
+			CamPartA.CameraPositionZ = CamPartA.CameraPositionZ - 0.5;
+			CamPartA.CameraPointingToZ = CamPartA.CameraPointingToZ - 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 's':
-			Cam.CameraPositionZ = Cam.CameraPositionZ + 0.5;
-			Cam.CameraPointingToZ = Cam.CameraPointingToZ + 0.5;
+			CamPartA.CameraPositionZ = CamPartA.CameraPositionZ + 0.5;
+			CamPartA.CameraPointingToZ = CamPartA.CameraPointingToZ + 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 'd':
-			Cam.CameraPointingToX = Cam.CameraPointingToX + 0.5;
-			Cam.CameraPositionX = Cam.CameraPositionX + 0.5;
+			CamPartA.CameraPointingToX = CamPartA.CameraPointingToX + 0.5;
+			CamPartA.CameraPositionX = CamPartA.CameraPositionX + 0.5;
+			CameraIsMoved = true;
+			strafe -= 10;
 			glutPostRedisplay();
 			break;
 		case 'a':
-			Cam.CameraPointingToX = Cam.CameraPointingToX - 0.5;
-			Cam.CameraPositionX = Cam.CameraPositionX - 0.5;
+			CamPartA.CameraPointingToX = CamPartA.CameraPointingToX - 0.5;
+			CamPartA.CameraPositionX = CamPartA.CameraPositionX - 0.5;
+			CameraIsMoved = true;
+			strafe += 10;
 			glutPostRedisplay();
 			break;
 		case ' ':
-			Cam.CameraPointingToY = Cam.CameraPointingToY + 0.5;
-			Cam.CameraPositionY = Cam.CameraPositionY + 0.5;
+			CamPartA.CameraPointingToY = CamPartA.CameraPointingToY + 0.5;
+			CamPartA.CameraPositionY = CamPartA.CameraPositionY + 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 'c':
-			Cam.CameraPointingToY = Cam.CameraPointingToY - 0.5;
-			Cam.CameraPositionY = Cam.CameraPositionY - 0.5;
+			CamPartA.CameraPointingToY = CamPartA.CameraPointingToY - 0.5;
+			CamPartA.CameraPositionY = CamPartA.CameraPositionY - 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 'q':
-			Cam.CameraPointingToX = Cam.CameraPointingToX - 0.5;
+			//CamPartA.CameraPointingToX = CamPartA.CameraPointingToX - 0.5;
+			CamPartA.CameraPointingToX -= 0.5;
+			CameraIsMoved = true;
 			glutPostRedisplay();
 			break;
 		case 'e':
-			Cam.CameraPointingToX = Cam.CameraPointingToX + 0.5;
+			//CamPartA.CameraPointingToX = CamPartA.CameraPointingToX + 0.5;
+			CamPartA.CameraPointingToX += 0.5;
+			CameraIsMoved = true;
+			glutPostRedisplay();	
+			break;
+		case 't':
+			RotationPY += 10;
+			RotationS5 -= 10;
 			glutPostRedisplay();
 			break;
-
+		case 'f':
+			CamPartA.CameraPointingToY += 0.5;
+			glutPostRedisplay();
+			break;
+		case 'v':
+			CamPartA.CameraPointingToY -= 0.5;
+			glutPostRedisplay();
+			break;
+		case 'z':
+			CamPartA.CameraTiltX -= 0.5;
+			glutPostRedisplay();
+			break;
+		case 'x':
+			CamPartA.CameraTiltX += 0.5;
+			glutPostRedisplay();
+			break;
 	}
 	
+	
+}
+
+void Camera::PartAMoveCamera()
+{
+	//glLoadIdentity();             /* clear the matrix */
+	glViewport(700, 0, 700, 350);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(85.0, 1.0, 1.5, 100.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(0.0, 0.0, -7.5);
+	glRotatef(30.0, 1.0, 0.0, 0.0);
+	glScalef(1.0, 2.0, 1.0);      /* modeling transformation*/
+	
+	gluLookAt(
+		CamPartA.CameraPositionX, CamPartA.CameraPositionY, CamPartA.CameraPositionZ,						//Camera position
+		CamPartA.CameraPointingToX, CamPartA.CameraPointingToY, CamPartA.CameraPointingToZ,				//Aim at position
+		CamPartA.CameraTiltX, CamPartA.CameraTiltY, CamPartA.CameraTiltZ									//Camera orientation
+	);
+	DrawGround();
+	GLUquadricObj* quadObj = gluNewQuadric();
+	gluQuadricDrawStyle(quadObj, GLU_LINE);
+	gluCylinder(quadObj, 1.5, 0.5, 6.0, 20, 10);
+	
+	glEnd();
+}
+
+void DrawGround()
+{
+	glBegin(GL_LINES);
+	for (GLfloat i = -7.5; i <= 7.5; i += 0.75) {
+		glVertex3f(i, -1, 7.5);
+		glVertex3f(i, -1, -7.5);
+		glVertex3f(7.5, -1, i);
+		glVertex3f(-7.5, -1, i);
+	}
+	glEnd();
 }
